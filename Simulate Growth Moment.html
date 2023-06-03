@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<style>
+		#log-container { 
+			overflow: auto; height: 150px; 
+		}
+		.log-warn { 
+			color: orange 
+		}
+		.log-error { 
+			color: red 
+		}
+		.log-info { 
+			color: skyblue 
+		}
+		.log-log { 
+			color: silver 
+		}
+		.log-warn, .log-error { 
+			font-weight: bold; 
+		}
+		body {
+			background-color: #383838;
+		}
+		body {
+			color: white;
+		}
+		.flex-container {
+			display: flex;
+		}	
+		.flex-child {
+			flex: 1;
+			border: 2px solid yellow;
+		}
+
+		.flex-child:first-child {
+			margin-right: 20px;
+		} 	
+	</style>
+	<title>Simulate Growth Moment</title>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<div class="flex-container">
+		<div class="flex-child">
+			<button id="Moment1" onclick="populateTraits(0); this.disabled=true">Growth Moment 1:</button><span id="Choice1"></span><br>
+			<button id="t01" disabled onclick="selectTrait('Trait01', 'hiddenID01', 'Choice1')">Select</button><span id="Trait01"></span><span id="hiddenID01" hidden>unset</span><br>
+			<button id="t02" disabled onclick="selectTrait('Trait02', 'hiddenID02', 'Choice1')">Select</button><span id="Trait02"></span><span id="hiddenID02" hidden>unset</span><br>
+			<button id="t03" disabled onclick="selectTrait('Trait03', 'hiddenID03', 'Choice1')">Select</button><span id="Trait03"></span><span id="hiddenID03" hidden>unset</span><br>
+			<button id="t04" disabled onclick="selectTrait('Trait04', 'hiddenID04', 'Choice1')">Select</button><span id="Trait04"></span><span id="hiddenID04" hidden>unset</span><br>
+			<button id="t05" disabled onclick="selectTrait('Trait05', 'hiddenID05', 'Choice1')">Select</button><span id="Trait05"></span><span id="hiddenID05" hidden>unset</span><br>
+			<button id="t06" disabled onclick="selectTrait('Trait06', 'hiddenID06', 'Choice1')">Select</button><span id="Trait06"></span><span id="hiddenID06" hidden>unset</span><br>
+		</div>
+		<div class="flex-child">
+			<div id="p01"></div>
+			<div id="p02"></div>
+			<div id="p03"></div>
+			<div id="p04"></div>
+			<div id="p05"></div>
+			<div id="p06"></div>
+		</div>
+	</div>
+	<div class="flex-container">
+		<div class="flex-child">
+			<button id="Moment2" disabled onclick="populateTraits(1); this.disabled=true">Growth Moment 1:</button><span id="Choice2"></span><br>
+			<button id="t07" disabled onclick="selectTrait('Trait07', 'hiddenID07', 'Choice2')">Select</button><span id="Trait07"></span><span id="hiddenID07" hidden>unset</span><br>
+			<button id="t08" disabled onclick="selectTrait('Trait08', 'hiddenID08', 'Choice2')">Select</button><span id="Trait08"></span><span id="hiddenID08" hidden>unset</span><br>
+			<button id="t09" disabled onclick="selectTrait('Trait09', 'hiddenID09', 'Choice2')">Select</button><span id="Trait09"></span><span id="hiddenID09" hidden>unset</span><br>
+			<button id="t10" disabled onclick="selectTrait('Trait10', 'hiddenID10', 'Choice2')">Select</button><span id="Trait10"></span><span id="hiddenID10" hidden>unset</span><br>
+			<button id="t11" disabled onclick="selectTrait('Trait11', 'hiddenID11', 'Choice2')">Select</button><span id="Trait11"></span><span id="hiddenID11" hidden>unset</span><br>
+			<button id="t12" disabled onclick="selectTrait('Trait12', 'hiddenID12', 'Choice2')">Select</button><span id="Trait12"></span><span id="hiddenID12" hidden>unset</span><br>
+		</div>
+		<div class="flex-child">
+			<div id="p07"></div>
+			<div id="p08"></div>
+			<div id="p09"></div>
+			<div id="p10"></div>
+			<div id="p11"></div>
+			<div id="p12"></div>
+		</div>
+	</div>
+	<div class="flex-container">
+		<div class="flex-child">
+			<button id="Moment3" disabled onclick="populateTraits(2); this.disabled=true">Growth Moment 1:</button><span id="Choice3"></span><br>
+			<button id="t13" disabled onclick="selectTrait('Trait13', 'hiddenID13', 'Choice3')">Select</button><span id="Trait13"></span><span id="hiddenID13" hidden>unset</span><br>
+			<button id="t14" disabled onclick="selectTrait('Trait14', 'hiddenID14', 'Choice3')">Select</button><span id="Trait14"></span><span id="hiddenID14" hidden>unset</span><br>
+			<button id="t15" disabled onclick="selectTrait('Trait15', 'hiddenID15', 'Choice3')">Select</button><span id="Trait15"></span><span id="hiddenID15" hidden>unset</span><br>
+			<button id="t16" disabled onclick="selectTrait('Trait16', 'hiddenID16', 'Choice3')">Select</button><span id="Trait16"></span><span id="hiddenID16" hidden>unset</span><br>
+			<button id="t17" disabled onclick="selectTrait('Trait17', 'hiddenID17', 'Choice3')">Select</button><span id="Trait17"></span><span id="hiddenID17" hidden>unset</span><br>
+			<button id="t18" disabled onclick="selectTrait('Trait18', 'hiddenID18', 'Choice3')">Select</button><span id="Trait18"></span><span id="hiddenID18" hidden>unset</span><br>
+		</div>
+		<div class="flex-child">
+			<div id="p13"></div>
+			<div id="p14"></div>
+			<div id="p15"></div>
+			<div id="p16"></div>
+			<div id="p17"></div>
+			<div id="p18"></div>
+		</div>
+	</div>
+	<div>
+		<button id="randomSkill" onclick="randomSkill()">Random Skill: </button><span id="skillName"></span>
+	</div>
+	<div id="log-container">
+		<pre id="log"></pre>
+	</div>	
+		
+
+<script>
+	const traits = [
+		"Night Owl", 
+		"Undergrounder", 
+		"Nudist",
+		"Masochist",
+		"Body Modder",
+		"Body Purist",
+		"Gourmand",
+		"Ascetic",
+		"Greedy",
+		"Jealous",
+		"Pyromaniac",
+		"Bloodlust",
+		"Cannibal",
+		"Psychopath",
+		"Nimble",
+		"Brawler",
+		"Tough",
+		"Wimp",
+		"Delicate",
+		"Too Smart",
+		"Fast Learner",
+		"Slow Learner",
+		"Quick Sleeper",
+		"Great Memory",
+		"Tortured Artist",
+		"Kind",
+		"Abrasive",
+		"Annoying Voice",
+		"Creepy Breathing",
+		"Misandrist",
+		"Misogynist",
+		"Asexual",
+		"Gay",
+		"Bisexual",
+		"Recluse",
+		"Chemical Fascination",
+		"Chemical Interest",
+		"Teetotaler",
+		"Industrious",
+		"Hard Worker",
+		"Lazy",
+		"Slothful",
+		"Jogger",
+		"Fast Walker",
+		"Slowpoke",
+		"Sanguine",
+		"Optimist",
+		"Pessimist",
+		"Depressive",
+		"Iron-willed",
+		"Steadfast",
+		"Nervous",
+		"Volatile",
+		"Neurotic",
+		"Very Neurotic",
+		"Careful Shooter",
+		"Trigger-happy",
+		"Beautiful",
+		"Pretty",
+		"Ugly",
+		"Staggeringly Ugly",
+		"Psychically Hypersensitive",
+		"Psychically Sensitive",
+		"Psychically Dull",
+		"Psychically Deaf",
+		"Super-immune",
+		"Sickly",
+	];
+	const passions = [
+		"Shooting",
+		"Melee",
+		"Construction",
+		"Mining",
+		"Cookng",
+		"Plants",
+		"Animals",
+		"Crafting",
+		"Artistic",
+		"Medical",
+		"Social",
+		"Intellectual",
+	];
+
+	function getTraitSet(quantity, max){
+		const set = new Set();
+		var randomValue;
+		while(set.size < quantity) {
+			randomValue = Math.floor(Math.random() * max)
+			if (traits[randomValue] != 'removedTrait') {
+				set.add(randomValue);
+			}		
+		}
+		return set;
+	};
+	function getPassionSet(quantity, max){
+		const set = new Set();
+		while(set.size < quantity) {
+			set.add(Math.floor(Math.random() * max));
+		}
+		const sortedArray = Array.from(set).sort((a, b) => a - b);
+		const sortedSet = new Set(sortedArray);
+		return sortedSet;
+	};
+	function randomSkill(){
+		document.getElementById('skillName').innerHTML = passions[Math.floor(Math.random() * passions.length)];		
+	}
+
+	function populateTraits(iteration) {
+		var optionNo
+		var hiddenID
+		var buttonID
+
+		if (iteration == 0) {
+			optionNo = ["Trait01","Trait02","Trait03","Trait04","Trait05","Trait06",];
+			hiddenID = ["hiddenID01","hiddenID02","hiddenID03","hiddenID04","hiddenID05",];
+			buttonID = ["t01","t02","t03","t04","t05","t06",];
+		} else if (iteration == 1) {
+			optionNo = ["Trait07","Trait08","Trait09","Trait10","Trait11","Trait12",];
+			hiddenID = ["hiddenID07","hiddenID08","hiddenID09","hiddenID10","hiddenID11",];
+			buttonID = ["t07","t08","t09","t10","t11","t12",];
+		} else {
+			optionNo = ["Trait13","Trait14","Trait15","Trait16","Trait17","Trait18",];
+			hiddenID = ["hiddenID13","hiddenID14","hiddenID15","hiddenID16","hiddenID17",];
+			buttonID = ["t13","t14","t15","t16","t17","t18",];
+		}
+
+		const myIterator = getTraitSet(5, traits.length).values();		
+		i=0;
+		for (const entry of myIterator) {
+			document.getElementById(optionNo[i]).innerHTML = traits[entry];
+			document.getElementById(hiddenID[i]).innerHTML = entry;
+			i++;
+		};
+		document.getElementById(optionNo[i]).innerHTML = 'No Trait';
+
+		for (let i = 0; i < 6; i++) {
+			document.getElementById(buttonID[i]).disabled = false;
+		};	
+		populatePasions(iteration);
+	};
+	function populatePasions(iteration) {
+		var passionSlot
+
+		if (iteration == 0) {
+			passionSlot = ["p01", "p02", "p03", "p04", "p05", "p06",];
+		} else if (iteration == 1) {
+			passionSlot = ["p07", "p08", "p09", "p10", "p11", "p12",];
+		} else {
+			passionSlot = ["p13", "p14", "p15", "p16", "p17", "p18",];
+		}
+
+		const myIterator = getPassionSet(6, passions.length).values();		
+		i=0;
+		for (const entry of myIterator) {
+			document.getElementById(passionSlot[i]).innerHTML = passions[entry];
+			i++;
+		};		
+	};
+
+	function selectTrait(choice, traitNo, iteration) {
+		var trait = document.getElementById(traitNo).innerHTML
+		compatabilityCheck(trait);
+		traits[trait] = 'removedTrait';
+
+		var buttonID
+
+		if (iteration === 'Choice1') {
+			buttonID = ["t01","t02","t03","t04","t05","t06",];
+			document.getElementById("Moment2").disabled = false;
+		} else if (iteration === 'Choice2') {
+			buttonID = ["t07","t08","t09","t10","t11","t12",];
+			document.getElementById("Moment3").disabled = false;
+		} else {
+			buttonID = ["t13","t14","t15","t16","t17","t18",];
+		}
+
+		for (let i = 0; i < 6; i++) {
+			document.getElementById(buttonID[i]).disabled = true;
+		};
+
+		document.getElementById(iteration).innerHTML = document.getElementById(choice).innerHTML;
+	};
+	function compatabilityCheck(argument) {
+		switch (traits[argument]) {
+			case "Masochist":
+				traits[17] = 'removedTrait';//17 = Wimp
+				break;
+			case "Body Modder":
+				traits[5] = 'removedTrait';//5 = Body purist
+				break;
+			case "Body Purist":
+				traits[4] = 'removedTrait';//4 = Body modder
+				break;
+			case "Gourmand":
+				traits[7] = 'removedTrait';//7 = Ascetic
+				break;
+			case "Ascetic":
+				traits[8] = 'removedTrait';//8
+				traits[6] = 'removedTrait';//6
+				traits[9] = 'removedTrait';//9
+				break;
+			case "Greedy":
+				traits[7] = 'removedTrait';//7
+				traits[9] = 'removedTrait';//9
+				break;
+			case "Jealous":
+				traits[7] = 'removedTrait';//7
+				traits[8] = 'removedTrait';//8
+				break;
+			case "Psychopath":
+				traits[25] = 'removedTrait';//25
+				break;
+			case "Brawler":
+				traits[55] = 'removedTrait';//55
+				traits[56] = 'removedTrait';//56
+				traits[17] = 'removedTrait';//17
+				break;
+			case "Tough":
+				traits[18] = 'removedTrait';//18
+				break;
+			case "Wimp":
+				traits[15] = 'removedTrait';//15
+				traits[3] = 'removedTrait';//3
+				break;
+			case "Delicate":
+				traits[16] = 'removedTrait';//16
+				break;
+			case "Too Smart":
+				traits[49] = 'removedTrait';//49
+				traits[50] = 'removedTrait';//50
+				traits[51] = 'removedTrait';//51
+				traits[52] = 'removedTrait';//52
+				break;
+			case "Fast Learner":
+				traits[21] = 'removedTrait';//21
+				break;
+			case "Slow Learner":
+				traits[20] = 'removedTrait';//20
+				break;
+			case "Kind":
+				traits[13] = 'removedTrait';//13
+				traits[26] = 'removedTrait';//26
+				break;
+			case "Abrasive":
+				traits[25] = 'removedTrait';//25
+				break;
+			case "Asexual":
+				traits[32] = 'removedTrait';//322
+				traits[33] = 'removedTrait';//33
+				break;
+			case "Gay":
+				traits[31] = 'removedTrait';//31
+				traits[33] = 'removedTrait';//33
+				break;
+			case "Bisexual":
+				traits[31] = 'removedTrait';//31
+				traits[32] = 'removedTrait';//32
+				break;
+			case "Chemical Fascination":
+				traits[36] = 'removedTrait';//36
+				traits[37] = 'removedTrait';//37
+				break;
+			case "Chemical Interest":
+				traits[35] = 'removedTrait';//35
+				traits[37] = 'removedTrait';//37
+				break;
+			case "Teetotaler":
+				traits[35] = 'removedTrait';//35
+				traits[36] = 'removedTrait';//36
+				break;
+			case "Industrious":
+				traits[39] = 'removedTrait';//39
+				traits[40] = 'removedTrait';//40
+				traits[41] = 'removedTrait';//41
+				break;
+			case "Hard Worker":
+				traits[38] = 'removedTrait';//38
+				traits[40] = 'removedTrait';//40
+				traits[41] = 'removedTrait';//41
+				break;
+			case "Lazy":
+				traits[38] = 'removedTrait';//38
+				traits[39] = 'removedTrait';//39
+				traits[41] = 'removedTrait';//41
+				break;
+			case "Slothful":
+				traits[38] = 'removedTrait';//38
+				traits[39] = 'removedTrait';//39
+				traits[40] = 'removedTrait';//40
+				break;
+			case "Jogger":
+				traits[43] = 'removedTrait';//43
+				traits[44] = 'removedTrait';//44
+				break;
+			case "Fast Walker":
+				traits[42] = 'removedTrait';//42
+				traits[44] = 'removedTrait';//44
+				break;
+			case "Slowpoke":
+				traits[42] = 'removedTrait';//42
+				traits[43] = 'removedTrait';//43
+				break;
+			case "Sanguine":
+				traits[46] = 'removedTrait';//46
+				traits[47] = 'removedTrait';//47
+				traits[48] = 'removedTrait';//48
+				break;
+			case "Optimist":
+				traits[45] = 'removedTrait';//45
+				traits[47] = 'removedTrait';//47
+				traits[48] = 'removedTrait';//48
+				break;
+			case "Pessimist":
+				traits[45] = 'removedTrait';//45
+				traits[46] = 'removedTrait';//46
+				traits[48] = 'removedTrait';//48
+				break;
+			case "Depressive":
+				traits[45] = 'removedTrait';//45
+				traits[46] = 'removedTrait';//46
+				traits[47] = 'removedTrait';//47
+				break;
+			case "Iron-willed":
+				traits[50] = 'removedTrait';//50
+				traits[51] = 'removedTrait';//51
+				traits[52] = 'removedTrait';//52
+				break;
+			case "Steadfast":
+				traits[49] = 'removedTrait';//49
+				traits[51] = 'removedTrait';//51
+				traits[52] = 'removedTrait';//52
+				break;
+			case "Nervous":
+				traits[49] = 'removedTrait';//49
+				traits[50] = 'removedTrait';//50
+				traits[52] = 'removedTrait';//52
+				break;
+			case "Volatile":
+				traits[49] = 'removedTrait';//49
+				traits[50] = 'removedTrait';//50
+				traits[51] = 'removedTrait';//51
+				break;
+			case "Neurotic":
+				traits[54] = 'removedTrait';//54
+				break;
+			case "Very Neurotic":
+				traits[53] = 'removedTrait';//53
+				break;
+			case "Careful Shooter":
+				traits[15] = 'removedTrait';//15
+				traits[56] = 'removedTrait';//56
+				break;
+			case "Trigger-happy":
+				traits[15] = 'removedTrait';//15
+				traits[55] = 'removedTrait';//55
+				break;
+			case "Beautiful":
+				traits[58] = 'removedTrait';//58
+				traits[59] = 'removedTrait';//59
+				traits[60] = 'removedTrait';//60
+				break;
+			case "Pretty":
+				traits[57] = 'removedTrait';//57
+				traits[59] = 'removedTrait';//59
+				traits[60] = 'removedTrait';//60
+				break;
+			case "Ugly":
+				traits[57] = 'removedTrait';//57
+				traits[58] = 'removedTrait';//58
+				traits[60] = 'removedTrait';//60
+				break;
+			case "Staggeringly Ugly":
+				traits[57] = 'removedTrait';//57
+				traits[58] = 'removedTrait';//58
+				traits[59] = 'removedTrait';//59
+				break;
+			case "Psychically Hypersensitive":
+				traits[62] = 'removedTrait';//62
+				traits[63] = 'removedTrait';//63
+				traits[64] = 'removedTrait';//64
+				break;
+			case "Psychically Sensitive":
+				traits[61] = 'removedTrait';//61
+				traits[63] = 'removedTrait';//63
+				traits[64] = 'removedTrait';//64
+				break;
+			case "Psychically Dull":
+				traits[61] = 'removedTrait';//61
+				traits[62] = 'removedTrait';//62
+				traits[64] = 'removedTrait';//64
+				break;
+			case "Psychically Deaf":
+				traits[61] = 'removedTrait';//61
+				traits[62] = 'removedTrait';//62
+				traits[63] = 'removedTrait';//63
+				break;
+			case "Super-immune":
+				traits[66] = 'removedTrait';//66
+				break;
+			case "Sickly":
+				traits[65] = 'removedTrait';//65
+				break;
+		}
+	}
+
+	rewireLoggingToElement(
+		() => document.getElementById("log"),
+		() => document.getElementById("log-container"), true);
+	function rewireLoggingToElement(eleLocator, eleOverflowLocator, autoScroll) {
+		fixLoggingFunc('log');
+		fixLoggingFunc('debug');
+		fixLoggingFunc('warn');
+		fixLoggingFunc('error');
+		fixLoggingFunc('info');
+
+		function fixLoggingFunc(name) {
+			console['old' + name] = console[name];
+			console[name] = function(...arguments) {
+				const output = produceOutput(name, arguments);
+				const eleLog = eleLocator();
+
+				if (autoScroll) {
+					const eleContainerLog = eleOverflowLocator();
+					const isScrolledToBottom = eleContainerLog.scrollHeight - eleContainerLog.clientHeight <= eleContainerLog.scrollTop + 1;
+					eleLog.innerHTML += output + "<br>";
+					if (isScrolledToBottom) {
+						eleContainerLog.scrollTop = eleContainerLog.scrollHeight - eleContainerLog.clientHeight;
+					}
+				} else {
+					eleLog.innerHTML += output + "<br>";
+				}
+
+				console['old' + name].apply(undefined, arguments);
+			};
+		}
+
+		function produceOutput(name, args) {
+			return args.reduce((output, arg) => {
+				return output +
+					"<span class=\"log-" + (typeof arg) + " log-" + name + "\">" +
+						(typeof arg === "object" && (JSON || {}).stringify ? JSON.stringify(arg) : arg) +
+					"</span>&nbsp;";
+			}, '');
+		}
+	}
+	//setInterval(() => {
+		//const method = (['log', 'debug', 'warn', 'error', 'info'][Math.floor(Math.random() * 5)]);
+		//console[method](method, 'logging something...');
+	//}, 200);	
+</script>
+</body>
+</html>
